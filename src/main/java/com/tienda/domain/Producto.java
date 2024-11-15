@@ -7,7 +7,6 @@ package com.tienda.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable; //permite almacenar y transmitir objetos de la clase donde se implemente 
-import java.util.List;
 
 import lombok.Data;
 
@@ -15,9 +14,9 @@ import lombok.Data;
 
 @Entity
 
-@Table(name = "categoria")
+@Table(name = "producto")
 
-public class Categoria implements Serializable {
+public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L; //asegura que todo lo que esta en esta clase se pueda serializar 
 
@@ -25,27 +24,35 @@ public class Categoria implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY) //identifica el valor del id o llave primaria y que sea el mismo en el codigo
 
-    @Column(name = "id_categoria") //hace referencia al primary key 
+    @Column(name = "id_producto") //hace referencia al primary key 
 
-    private Long idCategoria;//en la tabla tenemos un primary key que es igual a idCategoria
+    private Long idProducto;//en la tabla tenemos un primary key que es igual a idProducto
 
     private String descripcion;
 
     private String rutaImagen;
 
     private boolean activo;
-    
-    @OneToMany
-    @JoinColumn (name="id_categoria", updatable = false)
-    List<Producto> productos;
 
-    public Categoria() {
+    private String detalle;
+
+    private double precio;
+
+    private int existencias;
+
+    //private Long idCategoria; reemplazar  @ManyToOne
+    
+    @ManyToOne
+    @JoinColumn(name="id_categoria")
+    Categoria categoria;
+
+    public Producto() {
 
     }
 
-    public Categoria(String categoria, boolean activo) {
+    public Producto(String producto, boolean activo) {
 
-        this.descripcion = categoria;
+        this.descripcion = producto;
 
         this.activo = activo;
 
