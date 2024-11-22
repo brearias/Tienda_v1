@@ -76,4 +76,12 @@ public class ProductoController {
         model.addAttribute("categorias", categorias);
         return "/producto/modifica";
     }
+    
+    @GetMapping("/listado")
+public String listadoProductos(Model model) {
+    var productos = productoService.getProductos(false);
+    model.addAttribute("productos", productos);
+    model.addAttribute("totalProductos", productos.size());
+    return "/producto/listado";
+}
 }

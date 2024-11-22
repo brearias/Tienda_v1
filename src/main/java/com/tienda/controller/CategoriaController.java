@@ -68,4 +68,12 @@ public class CategoriaController {
         model.addAttribute("categoria", categoria);
         return "/categoria/modifica";
     }
+    
+    @GetMapping("/listado")
+public String listadoCategorias(Model model) {
+    var categorias = categoriaService.getCategorias(false);
+    model.addAttribute("categorias", categorias);
+    model.addAttribute("totalCategorias", categorias.size());
+    return "/categoria/listado";
+}
 }
